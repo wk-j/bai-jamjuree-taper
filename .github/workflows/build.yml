@@ -1,0 +1,43 @@
+name: Build fonts
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+
+      - name: Build Bai Jamjuree Taper
+        run: uv run build.py bai-jamjuree-taper.toml
+
+      - name: Package
+        run: |
+          mkdir -p package/BaiJamjureeTaper
+          cp dist/BaiJamjureeTaper/*.ttf OFL.txt README.md package/BaiJamjureeTaper/
+          cd package && zip -r ../BaiJamjureeTaper.zip BaiJamjureeTaper
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: BaiJamjureeTaper
+          path: package/BaiJamjureeTaper
+
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            BaiJamjureeTaper.zip
+            dist/BaiJamjureeTaper/*.ttf
+          generate_release_notes: true

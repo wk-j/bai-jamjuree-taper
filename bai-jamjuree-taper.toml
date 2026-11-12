@@ -1,0 +1,29 @@
+# Bai Jamjuree Taper: Bai Jamjuree whose stems narrow toward their free ends.
+# Bai Jamjuree is SIL OFL 1.1 with no Reserved Font Name, so a renamed derivative is allowed.
+
+family = "Bai Jamjuree Taper"
+# Bai Jamjuree is proportional; it stays that way, so no cells and no monospace flags.
+monospace = false
+
+# Static fonts from google/fonts (ofl/baijamjuree), one per style, each keeping its own italic angle.
+[source]
+"Regular" = "sources/BaiJamjuree-Regular.ttf"
+"Italic" = "sources/BaiJamjuree-Italic.ttf"
+"Bold" = "sources/BaiJamjuree-Bold.ttf"
+"Bold Italic" = "sources/BaiJamjuree-BoldItalic.ttf"
+
+[styles]
+"Regular" = {}
+"Italic" = {}
+"Bold" = {}
+"Bold Italic" = {}
+
+[taper]
+# Latin letters, digits, punctuation and symbols, Vietnamese, and Thai. Arrows, math operators and
+# geometric shapes (the dotted circle under a stray Thai mark) stay as they are.
+unicodes = ["0021-007E", "00A1-024F", "1E00-1EFF", "2010-205E", "20A0-20CF", "0E01-0E5B"]
+# Half of each stem end's width goes, over the last 200 units.
+amount = 0.5
+length = 200
+# Widest stem end that gets tapered. Bold diagonals (A V X Y v w) and ท end up to 167 wide.
+max_end = 180
